@@ -1,0 +1,272 @@
+$background-color: #f2f2f2;
+$color-default: #1698d9;
+$color-default__hover: #2ea8e6;
+$color-selected: #d91667;
+$color-selected__hover: #e62e7a;
+$color-disabled: #b3b3b3;
+$color-disabled-description: #ffff66;
+
+.item-card__background {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  stroke: $color-default;
+  stroke-width: 4;
+  fill: $background-color;
+  width: 320px;
+  height: 480px
+}
+
+.item-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 480px;
+
+  margin: 0 40px 0 40px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.item-card__wrap {
+  padding: 25px 0 0 0;
+}
+
+.item-card__teaser {
+  padding-top: 19px;
+  padding-left: 49px;
+  font-size: 16px;
+  font-family: "Trebuchet MS", serif;
+  color: rgb(102, 102, 102);
+  text-align: left;
+  margin: 0 0 0 0;
+}
+
+.item-card__teaser-second {
+  display: none;
+  @extend .item-card__teaser;
+  color: $color-selected__hover;
+}
+
+.item-card__title {
+  font-family: "Trebuchet MS", sans-serif;
+  margin: 2px 0 0 46px;
+  padding: 0 0 0 0;
+  text-align: left;
+  font-size: 48px;
+  font-weight: bold;
+  color: #000;
+
+}
+
+.item-card__taste {
+  margin: -7px 0 0 49px;
+  font-size: 24px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: #000;
+  font-weight: bold;
+  text-align: left;
+}
+
+.item-card__specifications {
+  display: flex;
+  flex-direction: column;
+  min-height: 52px;
+  margin: 0 0 0 48px;
+  padding: 11px 0 0;
+  list-style-type: none;
+
+}
+
+.item-card__specification {
+  line-height: 16px;
+  font-size: 14px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: #666666;
+}
+
+.item-card__cover {
+  position: absolute;
+  display: block;
+  bottom: 4px;
+  left: 4px;
+  border-bottom-left-radius: 8px;
+
+}
+
+.item-card__ellipse-wrap {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: $color-default;
+  text-align: center;
+}
+
+.item-card__ellipse__first-line {
+  font-size: 42px;
+  line-height: 42px;
+  font-family: "Trebuchet MS", serif;
+  color: white;
+  margin-bottom: -2px;
+}
+
+.item-card__ellipse__second-line {
+  @extend .item-card__ellipse__first-line;
+  font-size: 21px;
+  line-height: 22px;
+
+}
+
+// Text below card
+@mixin item-description {
+  display: block;
+  position: relative;
+  padding-top: 13px;
+  font-size: 13px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: rgb(255, 255, 255);
+  line-height: 1.231;
+  text-align: center;
+  text-shadow: 0.5px 0.866px 1px black;
+  margin: 0 0 30px 0;
+  .description-default {
+    display: none;
+    a {
+      color: $color-default;
+      text-decoration: none;
+      border-bottom: 1px dashed $color-default;
+      cursor: pointer;
+
+    }
+    span {
+      color: $color-default;
+      &:hover {
+        color: $color-default__hover;
+      }
+    }
+  }
+  .description-selected {
+    display: none;
+  }
+  .description-disable {
+    display: none;
+  }
+}
+
+.item-description__default {
+  @include item-description;
+  .description-default {
+    display: block;
+  }
+}
+
+.item-description__selected {
+  @include item-description;
+  .description-selected {
+    display: block;
+  }
+}
+
+.item-description__disable {
+  @include item-description;
+  .description-disable {
+    display: block;
+  }
+  color: $color-disabled-description;
+}
+// Card way
+.item-card__hover {
+  &:hover {
+    .item-card__background {
+      stroke: $color-default__hover;
+      cursor: pointer;
+    }
+    .item-card__ellipse-wrap {
+      background-color: $color-default__hover;
+
+    }
+  }
+}
+
+.item-card__selected-hover {
+  &:hover {
+
+    .item-card__background {
+      stroke: $color-selected__hover;
+      cursor: pointer;
+    }
+    .item-card__ellipse-wrap {
+      background-color: $color-selected__hover;
+    }
+    .item-card__teaser {
+      display: none;
+    }
+    .item-card__teaser-second {
+      display: block;
+    }
+
+  }
+}
+
+.item-card__selected {
+  .item-card__background {
+    stroke: $color-selected;
+  }
+  .item-card__ellipse-wrap {
+    background-color: $color-selected;
+  }
+  .item-description {
+
+    .item-description__selected {
+      display: block;
+    }
+  }
+}
+
+.item-card__disabled {
+  .item-card__phrase,
+  .item-card__title,
+  .item-card__feature,
+  .item-card__taste,
+  .item-card__teaser,
+  .item-card__specification {
+    color: $color-disabled;
+  }
+
+  .item-card__ellipse-wrap {
+    background-color: $color-disabled;
+  }
+
+  .item-card__background {
+    stroke: $color-disabled;
+  }
+
+  .item-card__cover {
+    opacity: 0.5;
+  }
+
+  &:hover {
+    .item-card__background {
+      stroke: $color-disabled;
+      cursor: default;
+    }
+    .item-card__ellipse-wrap {
+      background-color: $color-disabled;
+    }
+  }
+}
+// Adaptive
+@media screen and (max-width: 800px) {
+  .item-card {
+    margin: 0 20px 0 20px;
+  }
+
+}
